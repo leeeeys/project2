@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <style>
+      * {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  padding: 5em;
+  font-family: "Helvetica Neue", "Helvetica", sans-serif;
+  background-color: #002731;
+  padding-top: 10em;
+}
+
+h1 {
+  font-size: 5em;
+  text-align: center;
+  font-weight: 600;
+  color: #cb3126;
+}
+
+h1 span span {
+	position: relative;
+	animation: move-text-color 0.75s forwards;
+	bottom: -1em;
+	opacity: 0;
+}
+
+@keyframes move-text-color {
+	0% {
+		bottom: -0.2em;
+		opacity: 1;
+		color: #3E5C76;
+	}
+	
+	50% {
+		bottom: 0.2em;
+		color: #EC058E;
+	}
+
+	100% {
+		bottom: 0;
+		opacity: 1;
+    color: #cb3126;
+	}
+}
+    </style>
+</head>
+<body>
+    
+  <div id="app"></div>
+
+
+  
+    <script>
+        const { Component, Children, PropTypes } = React
+
+class SplitText extends Component {
+  render(){
+    return(
+      <span aria-label={this.props.copy} role={this.props.role}>
+          {this.props.copy.split("").map(function(char, index){
+            let style = {"animation-delay": (0.5 + index / 10) + "s"}
+            return <span
+              aria-hidden="true"
+              key={index}
+              style={style}>
+              {char}
+            </span>;
+          })}
+        </span>
+    );
+  }
+}
+
+class Layout extends Component {
+  render() {
+    return(
+      <h1><SplitText copy="NIKE" role="heading" /></h1>
+    );
+  }
+}
+
+ReactDOM.render(<Layout />, document.getElementById('app'))
+    </script>
+</body>
+</html>
